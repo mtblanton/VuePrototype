@@ -1,31 +1,60 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model VuePrototype.Models.GroupShellModel
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<style>
+    input, select {
+        margin: 3px 3px 1px 3px;
+        border-radius: 4px;
+        font-size: 14px;
+        box-shadow: 0 0 0 1px slategrey;
+        border-left: solid 6px #f8f8ff;
+        height: 1.6rem;
+        box-sizing: border-box;
+        padding-left: 5px;
+        border: 0;
+    }
+
+        input[type=checkbox] {
+            box-shadow: 0 0 0 0;
+            border: 0;
+        }
+
+    .required {
+        border-left: solid 6px #52a4ca;
+    }
+
+    .valid {
+        border-left: 6px solid white;
+    }
+
+    .error {
+        border-left: solid 6px #d60000;
+    }
+
+    .group {
+        margin: .1rem .5rem;
+        display: flex;
+        flex-direction: column;
+        max-width: 20rem;
+    }
+</style>
+<div id="app-7">
+    <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName"></label-input>
+    <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true"></label-select>
+    <label-checkbox id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization"></label-checkbox>
+    <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
+    <button id="AddSubsidiaryButton" v-on:click="addSubsidiary">+</button>
+    <div>
+        <br>
+        <br>
+        Selected Group Name: {{ GroupName }}
+        <br />
+        Selected Blue Partner: {{ BluePartner }}
+        <br>
+        Benefit Address Same as Organization: {{ BenefitAddressSameAsOrganization }}
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<script>
+    var groupShellModel = @Html.Raw(Model.JSONString());
+</script>
+@Scripts.Render("~/bundles/GroupShell")
