@@ -91,7 +91,7 @@ var vm = new Vue({
         }
     },
     methods: {
-        setInitialData () {
+        setInitialData() {
             Object.assign(this.$data, groupShellModel);
         },
         addSubsidiary() {

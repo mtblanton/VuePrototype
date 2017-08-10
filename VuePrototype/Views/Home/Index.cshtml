@@ -40,8 +40,8 @@
 <div id="app-7">
     <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName"></label-input>
     <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true"></label-select>
-    <add-ress v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress"/>
-    <label-checkbox id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization"></label-checkbox>
+    <v-address v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress"></v-address>
+    <label-checkbox label="Benefit Address same as Organization Address" id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization"></label-checkbox>
     <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
     <button id="AddSubsidiaryButton" v-on:click="addSubsidiary">+</button>
     <div>

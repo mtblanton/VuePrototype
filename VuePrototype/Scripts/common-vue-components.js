@@ -189,7 +189,7 @@ Vue.component('label-checkbox', {
         </div>`
 });
 
-Vue.component('add-ress',
+Vue.component('v-address',
 {
     props: {
         value: {
@@ -208,39 +208,40 @@ Vue.component('add-ress',
     },
     methods: {
         getAddressId(fieldName) {
-            return `${addressIdPrefix}${fieldName}`;
+            return `${this.addressIdPrefix}${fieldName}`;
         }
     },
     computed: {
         isValidCityStateZip() {
             // make ajax call to check
+            return true;
         },
         line1Id() {
-            return getAddressId('Line1');
+            return this.getAddressId('Line1');
         },
         line2Id() {
-            return getAddressId('Line2');
+            return this.getAddressId('Line2');
         },
         line3Id() {
-            return getAddressId('Line3');
+            return this.getAddressId('Line3');
         },
         cityId() {
-            return getAddressId('City');
+            return this.getAddressId('City');
         },
         stateId() {
-            return getAddressId('State');
+            return this.getAddressId('State');
         },
         zipId() {
-            return getAddressId('Zip');
+            return this.getAddressId('Zip');
         }
     },
     template: `
         <div class="address">
-            <label-input :id="line1Id" label="Line 1" v-model:"value.Line1" :required.bool="true" />
-            <input :id="line2Id" v-model:"value.Line2" />
-            <input :id="line3Id" v-model:"value.Line3" />
-            <label-input :id="cityId" label="City" v-model:"value.City" :required.bool="true" />
-            <label-select :id="stateId" label="State" v-model:"value.State" :required.bool="true" />
-            <label-input :id="zipId" label="Zip" v-model:"value.Zip" :required.bool="true" />
+            <label-input :id="line1Id" label="Line 1" v-model="value.Line1" :required.bool="true"></label-input>
+            <input :id="line2Id" v-model="value.Line2" ></input>
+            <input :id="line3Id" v-model="value.Line3" ></input>
+            <label-input :id="cityId" label="City" v-model="value.City" :required.bool="true" ></label-input>
+            <label-select :id="stateId" label="State" v-model="value.State" :required.bool="true" :options="states" ></label-select>
+            <label-input :id="zipId" label="Zip" v-model="value.Zip" :required.bool="true" ></label-input>
         </div>`
 });
