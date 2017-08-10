@@ -1,6 +1,6 @@
 ﻿function getFriendlyName(string) {
     let newString = string.replace(/([a-z])([A-Z])/g, '$1 $2');
-    newString = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
+    newString = newString.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
     return newString;
 }
 
@@ -209,6 +209,26 @@ Vue.component('v-address',
     methods: {
         getAddressId(fieldName) {
             return `${this.addressIdPrefix}${fieldName}`;
+        },
+        updateAddress() {
+            this.$emit('input', this.address);
+        }
+    },
+    data() {
+        return {
+            address: Object.assign({
+                Line1: '',
+                Line2: '',
+                Line3: '',
+                City: '',
+                State: '',
+                Zip: ''
+            }, this.value)
+        }
+    },
+    watch: {
+        'value': function () {
+            Object.assign(this.address, this.value);
         }
     },
     computed: {
@@ -237,11 +257,13 @@ Vue.component('v-address',
     },
     template: `
         <div class="address">
-            <label-input :id="line1Id" label="Line 1" v-model="value.Line1" :required.bool="true"></label-input>
-            <input :id="line2Id" v-model="value.Line2" ></input>
-            <input :id="line3Id" v-model="value.Line3" ></input>
-            <label-input :id="cityId" label="City" v-model="value.City" :required.bool="true" ></label-input>
-            <label-select :id="stateId" label="State" v-model="value.State" :required.bool="true" :options="states" ></label-select>
-            <label-input :id="zipId" label="Zip" v-model="value.Zip" :required.bool="true" ></label-input>
+            <div class="address-lines">
+                <label-input :id="line1Id" label="Address" v-model="address.Line1" :required.bool="true" v-on:input="updateAddress"></label-input>
+                <input :id="line2Id" v-model="address.Line2" v-on:input="updateAddress"></input>
+                <input :id="line3Id" v-model="address.Line3" v-on:input="updateAddress"></input>
+            </div>
+            <label-input :id="cityId" label="City" v-model="address.City" :required.bool="true" v-on:input="updateAddress"></label-input>
+            <label-select :id="stateId" label="State" v-model="address.State" :required.bool="true" :options="states" v-on:input="updateAddress"></label-select>
+            <label-input :id="zipId" label="Zip" v-model="address.Zip" :required.bool="true" v-on:input="updateAddress"></label-input>
         </div>`
 });

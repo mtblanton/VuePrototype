@@ -16,6 +16,24 @@
     methods: {
         removeSubsidiary() {
             this.$emit('remove');
+        },
+        updateSubsidiary() {
+            this.$emit('input', this.subsidiary)
+        }
+    },
+    data() {
+        return {
+            subsidiary: Object.assign({
+                Name: '',
+                TaxId: '',
+                City: '',
+                State: ''
+            }, this.value)
+        }
+    },
+    watch: {
+        'value': function () {
+            Object.assign(this.subsidiary, this.value);
         }
     },
     computed: {
@@ -49,10 +67,10 @@
     },
     template: `
         <div class="subsidiary">
-            <label-input :id="nameId" label="Name" v-model="value.Name" :required.bool="true" :valid="isValidSubsidiaryName"></label-input>
-            <label-input :id="taxIdId" label="Tax ID" v-model="value.TaxId" :valid="isValidTaxId"></label-input>
-            <label-input :id="cityId" label="City" v-model="value.City" :required.bool="true" :valid="isValidCity"></label-input>
-            <label-select :id="stateId" label="State" v-model="value.State" :options="states" :required.bool="true" :valid="isValidState" />
+            <label-input :id="nameId" label="Name" v-model="subsidiary.Name" :required.bool="true" :valid="isValidSubsidiaryName" v-on:input="updateSubsidiary"></label-input>
+            <label-input :id="taxIdId" label="Tax ID" v-model="subsidiary.TaxId" :valid="isValidTaxId" v-on:input="updateSubsidiary"></label-input>
+            <label-input :id="cityId" label="City" v-model="subsidiary.City" :required.bool="true" :valid="isValidCity" v-on:input="updateSubsidiary"></label-input>
+            <label-select :id="stateId" label="State" v-model="subsidiary.State" :options="states" :required.bool="true" :valid="isValidState"  v-on:input="updateSubsidiary"></label-select>
             <button :id="removeButtonId" @click="removeSubsidiary">X</button>
         </div>`
 };
@@ -105,11 +123,30 @@ var vm = new Vue({
         },
         removeSubsidiary(index) {
             this.Subsidiaries.splice(index, 1);
+        },
+        copyOrganizationAddressToBenefitAddress() {
+            if (this.BenefitAddressSameAsOrganization) {
+                if (!this.BenefitContactAddress) {
+                    this.BenefitContactAddress = {
+                        Line1: '',
+                        Line2: '',
+                        Line3: '',
+                        City: '',
+                        State: '',
+                        Zip: ''
+                    };
+                }
+                Object.assign(this.BenefitContactAddress, this.OrganizationContactAddress)
+            }
+
         }
     },
     computed: {
         isValidGroupName() {
             return !this.GroupName || this.GroupName.length > 2;
+        },
+        shouldShowBenefitContactAddress() {
+            return !this.BenefitAddressSameAsOrganization;
         }
     },
     components: {

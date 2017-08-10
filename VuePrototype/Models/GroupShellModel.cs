@@ -24,8 +24,8 @@ namespace VuePrototype.Models
         public string IntegrationId { get; set; }
         public string SICCode { get; set; }
 
-        public Address BenefitContactAddress { get; set; }
-        public Address OrganizationContactAddress { get; set; }
+        public Address BenefitContactAddress { get; set; } = new Address();
+        public Address OrganizationContactAddress { get; set; } = new Address();
 
 
         public IList<Subsidiary> Subsidiaries { get; set; } = new List<Subsidiary>();
