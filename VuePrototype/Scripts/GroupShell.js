@@ -1,4 +1,4 @@
-﻿Vue.component('subsidiary', {
+﻿var subsidiaryComponent = {
     props: {
         value: {
             type: Object,
@@ -55,7 +55,7 @@
             <label-select :id="stateId" label="State" v-model="value.State" :options="states" :required.bool="true" :valid="isValidState" />
             <button :id="removeButtonId" @click="removeSubsidiary">X</button>
         </div>`
-});
+};
 
 var vm = new Vue({
     el: '#app-7',
@@ -111,5 +111,8 @@ var vm = new Vue({
         isValidGroupName() {
             return !this.GroupName || this.GroupName.length > 2;
         }
+    },
+    components: {
+        'subsidiary': subsidiaryComponent
     }
 });

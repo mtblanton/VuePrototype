@@ -12,6 +12,7 @@ namespace VuePrototype.Models
         public virtual string TaxId { get; set; }
 
         public virtual string City { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public virtual State State { get; set; }
     }

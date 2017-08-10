@@ -40,6 +40,13 @@ namespace VuePrototype.Controllers
                         City = "Little Rock",
                         State = State.AR
                     }
+                },
+                OrganizationContactAddress = new Address
+                {
+                    Line1 = "1 Fake Ln",
+                    City = "Little Rock",
+                    State = State.AR,
+                    Zip = "72211"
                 }
             };
             return View(groupShellModel);
