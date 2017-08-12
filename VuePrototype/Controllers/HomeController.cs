@@ -51,5 +51,10 @@ namespace VuePrototype.Controllers
             };
             return View(groupShellModel);
         }
+
+        public bool IsValidAddress(Address address)
+        {
+            return address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211";
+        }
     }
 }
