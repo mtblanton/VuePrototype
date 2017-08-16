@@ -211,8 +211,21 @@ Vue.component('v-address',
             return `${this.addressIdPrefix}${fieldName}`;
         },
         updateAddress() {
+            this.isValidCityStateZip();
             this.$emit('input', this.address);
-        }
+        },
+        isValidCityStateZip: async function() {
+
+            const response = await fetch('/Home/IsValidAddress',
+            {
+                method: 'POST',
+                body: JSON.stringify(this.address),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                });
+            this.isValidAddress = await response.json();
+        },
     },
     data() {
         return {
@@ -223,7 +236,8 @@ Vue.component('v-address',
                 City: '',
                 State: '',
                 Zip: ''
-            }, this.value)
+            }, this.value),
+            isValidAddress: true
         }
     },
     watch: {
@@ -232,10 +246,6 @@ Vue.component('v-address',
         }
     },
     computed: {
-        isValidCityStateZip() {
-            // make ajax call to check
-            return true;
-        },
         line1Id() {
             return this.getAddressId('Line1');
         },
@@ -264,6 +274,6 @@ Vue.component('v-address',
             </div>
             <label-input :id="cityId" label="City" v-model="address.City" :required.bool="true" v-on:input="updateAddress"></label-input>
             <label-select :id="stateId" label="State" v-model="address.State" :required.bool="true" :options="states" v-on:input="updateAddress"></label-select>
-            <label-input :id="zipId" label="Zip" v-model="address.Zip" :required.bool="true" v-on:input="updateAddress"></label-input>
+            <label-input :id="zipId" label="Zip" v-model="address.Zip" :required.bool="true" :valid="isValidAddress" v-on:input="updateAddress"></label-input>
         </div>`
 });

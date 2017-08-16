@@ -52,9 +52,10 @@ namespace VuePrototype.Controllers
             return View(groupShellModel);
         }
 
-        public bool IsValidAddress(Address address)
+        [HttpPost]
+        public JsonResult IsValidAddress(Address address)
         {
-            return address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211";
+            return Json(address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211");
         }
     }
 }
