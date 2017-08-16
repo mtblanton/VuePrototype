@@ -131,7 +131,8 @@ Vue.component('label-select', {
             <select :id="id" :value="value" @input="updateValue($event.target.value)" :class="{ error: shouldShowError, required: required, valid: isValid }">
                 <option
                     v-for="option in options"
-                    :value="option.Value" >
+                    :value="option.Value"
+                    :selected="option.Value == value" >
                     {{ option.Name }}
                 </option>
             </select>
@@ -269,8 +270,10 @@ Vue.component('v-address',
         <div class="address">
             <div class="address-lines">
                 <label-input :id="line1Id" label="Address" v-model="address.Line1" :required.bool="true" v-on:input="updateAddress"></label-input>
-                <input :id="line2Id" v-model="address.Line2" v-on:input="updateAddress"></input>
-                <input :id="line3Id" v-model="address.Line3" v-on:input="updateAddress"></input>
+                <div class="group">
+                    <input :id="line2Id" v-model="address.Line2" v-on:input="updateAddress"></input>
+                    <input :id="line3Id" v-model="address.Line3" v-on:input="updateAddress"></input>
+                </div>
             </div>
             <label-input :id="cityId" label="City" v-model="address.City" :required.bool="true" v-on:input="updateAddress"></label-input>
             <label-select :id="stateId" label="State" v-model="address.State" :required.bool="true" :options="states" v-on:input="updateAddress"></label-select>

@@ -11,6 +11,10 @@
         states: {
             type: Array,
             required: true
+        },
+        index: {
+            type: Number,
+            required: true
         }
     },
     methods: {
@@ -50,19 +54,19 @@
             return true;
         },
         nameId() {
-            return `subsidiaryName${this.id}`;
+            return `subsidiary${this.index}Name`;
         },
         taxIdId() {
-            return `subsidiaryTaxId${this.id}`;
+            return `subsidiary${this.index}TaxId`;
         },
         cityId() {
-            return `subsidiaryCity${this.id}`;
+            return `subsidiary${this.index}City`;
         },
         stateId() {
-            return `subsidiaryState${this.id}`;
+            return `subsidiary${this.index}State`;
         },
         removeButtonId() {
-            return `subsidiaryRemove${this.id}`;
+            return `subsidiary${this.key}Remove`;
         }
     },
     template: `
@@ -71,7 +75,7 @@
             <label-input :id="taxIdId" label="Tax ID" v-model="subsidiary.TaxId" :valid="isValidTaxId" v-on:input="updateSubsidiary"></label-input>
             <label-input :id="cityId" label="City" v-model="subsidiary.City" :required.bool="true" :valid="isValidCity" v-on:input="updateSubsidiary"></label-input>
             <label-select :id="stateId" label="State" v-model="subsidiary.State" :options="states" :required.bool="true" :valid="isValidState"  v-on:input="updateSubsidiary"></label-select>
-            <button :id="removeButtonId" @click="removeSubsidiary">X</button>
+            <button :id="removeButtonId" type="button" class="btn btn-danger btn-x btn-remove-subsidiary" @click="removeSubsidiary">X</button>
         </div>`
 };
 

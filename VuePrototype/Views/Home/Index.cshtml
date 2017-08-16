@@ -1,5 +1,6 @@
 ﻿@model VuePrototype.Models.GroupShellModel
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <style>
     input, select {
         margin: 3px 3px 1px 3px;
@@ -16,6 +17,7 @@
         input[type=checkbox] {
             box-shadow: 0 0 0 0;
             border: 0;
+            height: auto;
         }
 
     .required {
@@ -41,16 +43,44 @@
         display: flex;
         flex-flow: column wrap;
     }
+
+    .btn-plus {
+        height: 36px;
+        width: 36px;
+    }
+
+    .btn-x {
+        height: 36px;
+        width: 36px;
+    }
+
+    .subsidiary {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: black 1px solid;
+        max-width: 43rem;
+    }
+
+    .btn-remove-subsidiary {
+        margin-left: 1rem;
+    }
 </style>
 
 <div id="app-7">
     <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName"></label-input>
     <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true"></label-select>
+    <h3>Organization Contact Address</h3>
     <v-address v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress" v-on:input="copyOrganizationAddressToBenefitAddress"></v-address>
     <label-checkbox label="Benefit Address same as Organization Address" id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization" v-on:input="copyOrganizationAddressToBenefitAddress"></label-checkbox>
+    <h3>Benefit Contact Address</h3>
     <v-address v-model="BenefitContactAddress" :states="States" address-id-prefix="BenefitContactAddress" v-if="shouldShowBenefitContactAddress"></v-address>
+    <h3>Subsidiaries</h3>
     <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
-    <button id="AddSubsidiaryButton" v-on:click="addSubsidiary">+</button>
+    <button id="AddSubsidiaryButton" type="button" class="btn btn-primary btn-plus" v-on:click="addSubsidiary">+</button>
 </div>
 
 <script>
