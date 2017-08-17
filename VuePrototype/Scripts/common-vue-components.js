@@ -253,7 +253,7 @@ Vue.component('v-address',
     },
     methods: {
         getAddressId(fieldName) {
-            return `${this.addressIdPrefix}${fieldName}`;
+            return `${this.addressIdPrefix}_${fieldName}`;
         },
         updateAddress() {
             this.isValidCityStateZip();

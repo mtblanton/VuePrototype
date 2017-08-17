@@ -11,10 +11,6 @@
         states: {
             type: Array,
             required: true
-        },
-        index: {
-            type: Number,
-            required: true
         }
     },
     methods: {
@@ -54,19 +50,19 @@
             return true;
         },
         nameId() {
-            return `subsidiary${this.index}Name`;
+            return `subsidiary${this.index}_Name`;
         },
         taxIdId() {
-            return `subsidiary${this.index}TaxId`;
+            return `subsidiary${this.index}_TaxId`;
         },
         cityId() {
-            return `subsidiary${this.index}City`;
+            return `subsidiary${this.index}_City`;
         },
         stateId() {
-            return `subsidiary${this.index}State`;
+            return `subsidiary${this.index}_State`;
         },
         removeButtonId() {
-            return `subsidiary${this.key}Remove`;
+            return `subsidiary${this.index}_Remove`;
         }
     },
     template: `
