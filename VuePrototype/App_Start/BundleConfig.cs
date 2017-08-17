@@ -20,7 +20,11 @@ namespace VuePrototype
 
             bundles.Add(new ScriptBundle("~/bundles/vue").Include(
                     "~/Scripts/vue.js",
-                    "~/Scripts/common-vue-components.js"
+                    "~/Scripts/common.js",
+                    "~/Scripts/label-checkbox.js",
+                    "~/Scripts/label-input.js",
+                    "~/Scripts/label-select.js",
+                    "~/Scripts/v-address.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/GroupShell").Include(
                     "~/Scripts/GroupShell.js"
