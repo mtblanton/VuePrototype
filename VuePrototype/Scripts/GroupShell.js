@@ -71,15 +71,42 @@
     },
     template: `
         <div class="subsidiary">
-            <label-input :id="nameId" label="Name" v-model="subsidiary.Name" :required.bool="true" :valid="isValidSubsidiaryName" v-on:input="updateSubsidiary"></label-input>
-            <label-input :id="taxIdId" label="Tax ID" v-model="subsidiary.TaxId" :valid="isValidTaxId" v-on:input="updateSubsidiary"></label-input>
-            <label-input :id="cityId" label="City" v-model="subsidiary.City" :required.bool="true" :valid="isValidCity" v-on:input="updateSubsidiary"></label-input>
-            <label-select :id="stateId" label="State" v-model="subsidiary.State" :options="states" :required.bool="true" :valid="isValidState"  v-on:input="updateSubsidiary"></label-select>
-            <button :id="removeButtonId" type="button" class="btn btn-danger btn-x btn-remove-subsidiary" @click="removeSubsidiary">X</button>
+            <label-input 
+                :id="nameId" 
+                label="Name" 
+                v-model="subsidiary.Name" 
+                :required.bool="true" 
+                :valid="isValidSubsidiaryName" 
+                @input="updateSubsidiary" ></label-input>
+            <label-input 
+                :id="taxIdId" 
+                label="Tax ID" 
+                v-model="subsidiary.TaxId" 
+                :valid="isValidTaxId" 
+                @input="updateSubsidiary" ></label-input>
+            <label-input 
+                :id="cityId" 
+                label="City" 
+                v-model="subsidiary.City" 
+                :required.bool="true" 
+                :valid="isValidCity" 
+                @input="updateSubsidiary" ></label-input>
+            <label-select 
+                :id="stateId" 
+                label="State" 
+                v-model="subsidiary.State" 
+                :options="states" 
+                :required.bool="true" 
+                :valid="isValidState"  
+                @input="updateSubsidiary"></label-select>
+            <button type="button"
+                :id="removeButtonId" 
+                class="btn btn-danger btn-x btn-remove-subsidiary" 
+                @click="removeSubsidiary">X</button>
         </div>`
 };
 
-var vm = new Vue({
+var groupShell = new Vue({
     el: '#app-7',
     mounted() {
             this.setInitialData();
@@ -87,6 +114,9 @@ var vm = new Vue({
     data() {
         return {
             GroupName: '',
+            TaxState: '',
+            PolicyState: '',
+            PolicyStateSameAsTaxState: false,
             BluePartner: '',
             BluePartnerOptions:
             [
@@ -142,7 +172,11 @@ var vm = new Vue({
                 }
                 Object.assign(this.BenefitContactAddress, this.OrganizationContactAddress)
             }
-
+        },
+        copyTaxStateToPolicyState() {
+            if (this.PolicyStateSameAsTaxState) {
+                this.PolicyState = this.TaxState;
+            }
         }
     },
     computed: {

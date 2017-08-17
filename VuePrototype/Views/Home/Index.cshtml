@@ -72,7 +72,10 @@
 
 <div id="app-7">
     <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName"></label-input>
-    <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true"></label-select>
+    <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true" ></label-select>
+    <label-checkbox id="PolicyStateSameAsTaxState" v-model="PolicyStateSameAsTaxState" v-on:input="copyTaxStateToPolicyState"></label-checkbox>
+    <label-select id="TaxState" :options="States" v-model="TaxState" v-on:input="copyTaxStateToPolicyState"></label-select>
+    <label-select id="PolicyState" :options="States" v-model="PolicyState" :disabled="PolicyStateSameAsTaxState"></label-select>
     <h3>Organization Contact Address</h3>
     <v-address v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress" v-on:input="copyOrganizationAddressToBenefitAddress"></v-address>
     <label-checkbox label="Benefit Address same as Organization Address" id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization" v-on:input="copyOrganizationAddressToBenefitAddress"></label-checkbox>

@@ -14,6 +14,9 @@ namespace VuePrototype.Controllers
             var groupShellModel = new GroupShellModel
             {
                 GroupName = "Taylor Test Group",
+                TaxState = State.AR,
+                PolicyState = State.AR,
+                PolicyStateSameAsTaxState = true,
                 BluePartnerOptions = new List<NameValuePair>
                 {
                     new NameValuePair

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace VuePrototype.Models
 {
@@ -11,11 +12,11 @@ namespace VuePrototype.Models
         public string TaxId { get; set; }
         public string GroupNumber { get; set; }
         public DateTime? CommencementDate { get; set; }
-
+        [JsonConverter(typeof(StringEnumConverter))]
         public State? TaxState { get; set; }
 
         public bool PolicyStateSameAsTaxState { get; set; }
-
+        [JsonConverter(typeof(StringEnumConverter))]
         public State? PolicyState { get; set; }
         public BluePartner BluePartner { get; set; }
         public IEnumerable<NameValuePair> BluePartnerOptions { get; set; }

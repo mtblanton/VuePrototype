@@ -1,4 +1,19 @@
-﻿function getFriendlyName(string) {
+﻿const jsonHeaders = new Headers({
+        'Content-Type': 'application/json'
+});
+
+function getJSONPostOptions(body) {
+    const jsonPostOptions = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: jsonHeaders
+    }
+
+    return jsonPostOptions;
+}
+
+
+function getFriendlyName(string) {
     let newString = string.replace(/([a-z])([A-Z])/g, '$1 $2');
     newString = newString.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
     return newString;
@@ -37,6 +52,11 @@ Vue.component('label-input', {
             type: Boolean,
             required: false,
             default: true
+        },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     methods: {
@@ -66,7 +86,12 @@ Vue.component('label-input', {
             <label :for="id">
                 {{ labelWithColon }}
             </label>
-            <input type="text" :id="id" :class="{ error: shouldShowError, required: required, valid: isValid }" :value="value" @input="updateValue($event.target.value)" />
+            <input type="text" 
+                :id="id" 
+                :class="{ error: shouldShowError, required: required, valid: isValid }" 
+                :value="value" 
+                :disabled="disabled" 
+                @input="updateValue($event.target.value)" />
         </div>`
 });
 
@@ -99,6 +124,11 @@ Vue.component('label-select', {
             type: Boolean,
             required: false,
             default: true
+        },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     methods: {
@@ -128,7 +158,12 @@ Vue.component('label-select', {
             <label :for="id">
                 {{ labelWithColon }}
             </label>
-            <select :id="id" :value="value" @input="updateValue($event.target.value)" :class="{ error: shouldShowError, required: required, valid: isValid }">
+                <select 
+                    :id="id" 
+                    :value="value" 
+                    @input="updateValue($event.target.value)" 
+                    :class="{ error: shouldShowError, required: required, valid: isValid }"
+                    :disabled="disabled" >
                 <option
                     v-for="option in options"
                     :value="option.Value"
@@ -159,6 +194,11 @@ Vue.component('label-checkbox', {
             type: Boolean,
             required: false,
             default: false
+        },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     methods: {
@@ -186,7 +226,11 @@ Vue.component('label-checkbox', {
             <label :for="id">
                 {{ friendlyLabel }}
             </label>
-            <input type="checkbox" :id="id" :checked.bool="value" @change="updateValue($event.target.checked)">
+            <input type="checkbox" 
+                :id="id" 
+                :checked.bool="value" 
+                :disabled="disabled"
+                @change="updateValue($event.target.checked)" >
         </div>`
 });
 
@@ -215,16 +259,8 @@ Vue.component('v-address',
             this.isValidCityStateZip();
             this.$emit('input', this.address);
         },
-        isValidCityStateZip: async function() {
-
-            const response = await fetch('/Home/IsValidAddress',
-            {
-                method: 'POST',
-                body: JSON.stringify(this.address),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-                });
+        isValidCityStateZip: async function () {
+            const response = await fetch('/Home/IsValidAddress', getJSONPostOptions(this.address));
             this.isValidAddress = await response.json();
         },
     },
@@ -269,14 +305,36 @@ Vue.component('v-address',
     template: `
         <div class="address">
             <div class="address-lines">
-                <label-input :id="line1Id" label="Address" v-model="address.Line1" :required.bool="true" v-on:input="updateAddress"></label-input>
+                <label-input 
+                    :id="line1Id" 
+                    label="Address" 
+                    v-model="address.Line1" 
+                    :required.bool="true" 
+                    v-on:input="updateAddress" ></label-input>
                 <div class="group">
                     <input :id="line2Id" v-model="address.Line2" v-on:input="updateAddress"></input>
                     <input :id="line3Id" v-model="address.Line3" v-on:input="updateAddress"></input>
                 </div>
             </div>
-            <label-input :id="cityId" label="City" v-model="address.City" :required.bool="true" v-on:input="updateAddress"></label-input>
-            <label-select :id="stateId" label="State" v-model="address.State" :required.bool="true" :options="states" v-on:input="updateAddress"></label-select>
-            <label-input :id="zipId" label="Zip" v-model="address.Zip" :required.bool="true" :valid="isValidAddress" v-on:input="updateAddress"></label-input>
+            <label-input 
+                :id="cityId" 
+                label="City" 
+                v-model="address.City" 
+                :required.bool="true" 
+                v-on:input="updateAddress" ></label-input>
+            <label-select 
+                :id="stateId" 
+                label="State" 
+                v-model="address.State" 
+                :required.bool="true" 
+                :options="states" 
+                v-on:input="updateAddress" ></label-select>
+            <label-input 
+                :id="zipId" 
+                label="Zip" 
+                v-model="address.Zip" 
+                :required.bool="true" 
+                :valid="isValidAddress" 
+                v-on:input="updateAddress" ></label-input>
         </div>`
 });
