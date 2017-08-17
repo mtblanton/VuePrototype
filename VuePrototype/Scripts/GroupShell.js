@@ -177,6 +177,9 @@ var groupShell = new Vue({
             if (this.PolicyStateSameAsTaxState) {
                 this.PolicyState = this.TaxState;
             }
+        },
+        submitGroupShell: async function () {
+            const response = await fetch('/Home/SaveGroupShell', getJSONPostOptions(this.$data));
         }
     },
     computed: {

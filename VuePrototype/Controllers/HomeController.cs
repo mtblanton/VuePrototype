@@ -60,5 +60,11 @@ namespace VuePrototype.Controllers
         {
             return Json(address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211");
         }
+
+        [HttpPost]
+        public JsonResult SaveGroupShell(GroupShellModel model)
+        {
+            return Json(true);
+        }
     }
 }

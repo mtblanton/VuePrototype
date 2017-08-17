@@ -68,6 +68,10 @@
     .btn-remove-subsidiary {
         margin-left: 1rem;
     }
+
+    h3 {
+        margin-top: 2rem;
+    }
 </style>
 
 <div id="app-7">
@@ -84,6 +88,7 @@
     <h3>Subsidiaries</h3>
     <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
     <button id="AddSubsidiaryButton" type="button" class="btn btn-primary btn-plus" v-on:click="addSubsidiary">+</button>
+    <button id="SubmitButton" type="button" class="btn btn-success" v-on:click="submitGroupShell">Submit</button>
 </div>
 
 <script>
