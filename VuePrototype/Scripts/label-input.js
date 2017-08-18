@@ -28,6 +28,11 @@ Vue.component('label-input', {
             type: Boolean,
             required: false,
             default: false
+        },
+        errorMessage: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
     methods: {
@@ -62,6 +67,7 @@ Vue.component('label-input', {
                 :class="{ error: shouldShowError, required: required, valid: isValid }" 
                 :value="value" 
                 :disabled="disabled" 
+                v-tooltip="errorMessage"
                 @input="updateValue($event.target.value)" />
         </div>`
 });

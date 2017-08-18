@@ -72,10 +72,36 @@
     h3 {
         margin-top: 2rem;
     }
+
+    .tooltip {
+  display: block !important;
+  pointer-events: none;
+  padding: 4px;
+  z-index: 10000;
+}
+
+.tooltip .tooltip-inner {
+  background: black;
+  color: white;
+  border-radius: 16px;
+  padding: 5px 10px 4px;
+}
+
+.tooltip[aria-hidden='true'] {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .15s, visibility .15s;
+}
+
+.tooltip[aria-hidden='false'] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .15s;
+}
 </style>
 
 <div id="app-7">
-    <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName"></label-input>
+    <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName" error-message="'Test'"></label-input>
     <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true" ></label-select>
     <label-checkbox id="PolicyStateSameAsTaxState" v-model="PolicyStateSameAsTaxState" v-on:input="copyTaxStateToPolicyState"></label-checkbox>
     <label-select id="TaxState" :options="States" v-model="TaxState" v-on:input="copyTaxStateToPolicyState"></label-select>

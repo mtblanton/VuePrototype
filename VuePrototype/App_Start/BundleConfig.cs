@@ -21,6 +21,9 @@ namespace VuePrototype
             bundles.Add(new ScriptBundle("~/bundles/vue").Include(
                     "~/Scripts/vue.js",
                     "~/Scripts/common.js",
+                    "~/Scripts/popper.js",
+                    "~/Scripts/tooltip.js",
+                    "~/Scripts/v-tooltip.js",
                     "~/Scripts/label-checkbox.js",
                     "~/Scripts/label-input.js",
                     "~/Scripts/label-select.js",

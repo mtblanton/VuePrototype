@@ -58,7 +58,8 @@ namespace VuePrototype.Controllers
         [HttpPost]
         public JsonResult IsValidAddress(Address address)
         {
-            return Json(address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211");
+            var isValid = address.City == "Little Rock" && address.State == State.AR && address.Zip == "72211";
+            return Json(isValid);
         }
 
         [HttpPost]

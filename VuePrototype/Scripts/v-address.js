@@ -64,6 +64,9 @@ Vue.component('v-address',
         },
         zipId() {
             return this.getAddressId('Zip');
+        },
+        tooltipMessage() {
+            return this.isValidAddress ? '' : 'This City/State/Zip combination is invalid';
         }
     },
     template: `
@@ -99,6 +102,7 @@ Vue.component('v-address',
                 v-model="address.Zip" 
                 :required.bool="true" 
                 :valid="isValidAddress" 
-                v-on:input="updateAddress" ></label-input>
+                v-on:input="updateAddress"
+                :errorMessage="tooltipMessage" ></label-input>
         </div>`
 });
