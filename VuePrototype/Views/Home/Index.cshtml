@@ -98,23 +98,41 @@
   opacity: 1;
   transition: opacity .15s;
 }
+
+#Subsidiaries {
+    margin-bottom: 2rem;
+}
 </style>
 
 <div id="app-7">
-    <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName" error-message="'Test'"></label-input>
-    <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true" ></label-select>
-    <label-checkbox id="PolicyStateSameAsTaxState" v-model="PolicyStateSameAsTaxState" v-on:input="copyTaxStateToPolicyState"></label-checkbox>
-    <label-select id="TaxState" :options="States" v-model="TaxState" v-on:input="copyTaxStateToPolicyState"></label-select>
-    <label-select id="PolicyState" :options="States" v-model="PolicyState" :disabled="PolicyStateSameAsTaxState"></label-select>
-    <h3>Organization Contact Address</h3>
-    <v-address v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress" v-on:input="copyOrganizationAddressToBenefitAddress"></v-address>
-    <label-checkbox label="Benefit Address same as Organization Address" id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization" v-on:input="copyOrganizationAddressToBenefitAddress"></label-checkbox>
-    <h3>Benefit Contact Address</h3>
-    <v-address v-model="BenefitContactAddress" :states="States" address-id-prefix="BenefitContactAddress" v-if="shouldShowBenefitContactAddress"></v-address>
-    <h3>Subsidiaries</h3>
-    <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
-    <button id="AddSubsidiaryButton" type="button" class="btn btn-primary btn-plus" v-on:click="addSubsidiary">+</button>
-    <button id="SubmitButton" type="button" class="btn btn-success" v-on:click="submitGroupShell">Submit</button>
+    <form v-on:submit.prevent="submitGroupShell">
+        <section id="GroupInfo">
+            <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName" error-message="'Test'"></label-input>
+            <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true" ></label-select>
+            <label-checkbox id="PolicyStateSameAsTaxState" v-model="PolicyStateSameAsTaxState" v-on:input="copyTaxStateToPolicyState"></label-checkbox>
+            <label-select id="TaxState" :options="States" v-model="TaxState" v-on:input="copyTaxStateToPolicyState"></label-select>
+            <label-select id="PolicyState" :options="States" v-model="PolicyState" :disabled="PolicyStateSameAsTaxState"></label-select> 
+        </section>
+
+        <section id="OrganizationContactAddress">
+            <h3>Organization Contact Address</h3>
+            <v-address v-model="OrganizationContactAddress" :states="States" address-id-prefix="OrganizationContactAddress" v-on:input="copyOrganizationAddressToBenefitAddress"></v-address>
+        </section>
+
+        <section id="BenefitContactAddress">
+            <label-checkbox label="Benefit Address same as Organization Address" id="BenefitAddressSameAsOrganization" v-model="BenefitAddressSameAsOrganization" v-on:input="copyOrganizationAddressToBenefitAddress"></label-checkbox>
+            <h3>Benefit Contact Address</h3>
+            <v-address v-model="BenefitContactAddress" :states="States" address-id-prefix="BenefitContactAddress" v-if="shouldShowBenefitContactAddress"></v-address>
+        </section>
+
+        <section id="Subsidiaries">
+            <h3>Subsidiaries</h3>
+            <subsidiary v-for="(subsidiary, index) in Subsidiaries" :index="index" :key="subsidiary.id" v-model="Subsidiaries[index]" v-on:remove="removeSubsidiary(index)" :states="States"></subsidiary>
+            <button id="AddSubsidiaryButton" type="button" class="btn btn-primary btn-plus" v-on:click="addSubsidiary">+</button>
+        </section>
+
+        <button id="SubmitButton" type="submit" class="btn btn-success">Submit</button>
+    </form>
 </div>
 
 <script>
