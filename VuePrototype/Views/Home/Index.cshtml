@@ -107,7 +107,11 @@
 <div id="app-7">
     <form v-on:submit.prevent="submitGroupShell">
         <section id="GroupInfo">
-            <label-input id="GroupName" v-model="GroupName" :required.bool="true" :valid="isValidGroupName" error-message="'Test'"></label-input>
+            <label-input id="GroupName"  
+                        v-model="GroupName" 
+                        :required.bool="true" 
+                        :valid="isValidGroupName" 
+                        error-message="'Test'"></label-input>
             <label-select id="BluePartner" :options="BluePartnerOptions" v-model="BluePartner" :required.bool="true" ></label-select>
             <label-checkbox id="PolicyStateSameAsTaxState" v-model="PolicyStateSameAsTaxState" v-on:input="copyTaxStateToPolicyState"></label-checkbox>
             <label-select id="TaxState" :options="States" v-model="TaxState" v-on:input="copyTaxStateToPolicyState"></label-select>

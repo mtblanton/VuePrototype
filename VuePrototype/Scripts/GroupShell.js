@@ -19,7 +19,7 @@ Vue.use(VTooltip, {
     defaultPopperOptions: {},
   });
 
-var subsidiaryComponent = {
+const subsidiaryComponent = {
     props: {
         value: {
             type: Object,
@@ -123,41 +123,13 @@ var subsidiaryComponent = {
         </div>`
 };
 
-var groupShell = new Vue({
+const groupShell = new Vue({
     el: '#app-7',
     mounted() {
             this.setInitialData();
     },
     data() {
-        return {
-            GroupName: '',
-            TaxState: '',
-            PolicyState: '',
-            PolicyStateSameAsTaxState: false,
-            BluePartner: '',
-            BluePartnerOptions:
-            [
-            ],
-            BenefitAddressSameAsOrganization: false,
-            BenefitContactAddress: {
-                Line1: '',
-                Line2: '',
-                Line3: '',
-                City: '',
-                State: '',
-                Zip: ''
-            },
-            OrganizationContactAddress: {
-                Line1: '',
-                Line2: '',
-                Line3: '',
-                City: '',
-                State: '',
-                Zip: ''
-            },
-            Subsidiaries: [],
-            States: []
-        }
+        return groupShellModel;
     },
     methods: {
         setInitialData() {
