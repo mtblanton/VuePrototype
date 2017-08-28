@@ -46,7 +46,7 @@ Vue.component('label-input', {
             return getLabelWithColon(this.label, this.id);
         },
         shouldShowError() {
-            return this.isDirty && ((this.required && !this.value) || !this.isValid)
+            return this.isDirty && ((this.required && !this.value) || !this.isValid);
         },
         isValid() {
             return this.value && this.valid;

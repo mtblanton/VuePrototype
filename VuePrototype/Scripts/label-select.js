@@ -54,7 +54,7 @@ Vue.component('label-select', {
     data() {
         return {
             isDirty: false
-        }
+        };
     },
     template: `
         <div class="group">
