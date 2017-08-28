@@ -49,7 +49,14 @@ Vue.component('label-input', {
             return this.isDirty && ((this.required && !this.value) || !this.isValid)
         },
         isValid() {
-            return Boolean(this.value && this.valid);
+            return this.value && this.valid;
+        },
+        classObject() {
+            return {
+                error: this.shouldShowError,
+                required: this.required,
+                valid: this.isValid
+            };
         }
     },
     data() {
@@ -64,7 +71,7 @@ Vue.component('label-input', {
             </label>
             <input type="text" 
                 :id="id" 
-                :class="{ error: shouldShowError, required: required, valid: isValid }" 
+                :class="classObject" 
                 :value="value" 
                 :disabled="disabled" 
                 v-tooltip="errorMessage"
